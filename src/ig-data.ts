@@ -41,8 +41,12 @@ export const getComments = async () => {
 
     // Set endpoint URL for next page of results
     endpoint = base.paging.next;
+    // If the process gets interrupted (due to rate-limiting or any other reason),
+    // Take the last successful endpoint and use it as the new initial value for endpoint (line 9).
     console.log(endpoint);
   }
   let commentsJsonString = JSON.stringify(comments, undefined, 2);
+  // Data is saved to a file in case of interruption.
+  // If interrupted, you will want to change this to appendFile to avoid overwriting the old data.
   await fs.promises.writeFile("data/comments.json", commentsJsonString);
 };
