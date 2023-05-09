@@ -1,8 +1,10 @@
 import * as fs from "fs";
 import { getRandomValues } from "crypto";
+import { DateTime } from "luxon";
 import { getComments } from "./ig-data";
 
 const NUM_TO_SELECT = 2;
+const DEADLINE = "2023-05-08T00:00"; // ISO 8601 timestamp in local time
 
 const cryptoRandomNumber = (a: number, b: number) => {
   return (
@@ -22,15 +24,21 @@ const main = async () => {
   // Store selected winners
   const winners: string[] = [];
 
+  // Deadline timestamp
+  const deadline = DateTime.fromISO(DEADLINE);
+
   for (let i = 0; i < NUM_TO_SELECT; i++) {
     // Select post number
     let isPreviousWinner = true;
     let commentNum = 0;
     let comment = undefined;
+    let commentTimestamp = DateTime.fromSeconds(0);
     while (isPreviousWinner) {
       comment = comments[commentNum];
+      commentTimestamp = DateTime.fromISO(comment.timestamp, { zone: "UTC" });
       commentNum = cryptoRandomNumber(0, comments.length - 1);
-      if (!winners.includes(comment.username)) {
+      // Checks: Not a previous winner & submitted before deadline
+      if (!winners.includes(comment.username) && commentTimestamp < deadline) {
         isPreviousWinner = false;
       }
     }
@@ -38,7 +46,9 @@ const main = async () => {
     console.log(
       `Winner #${i + 1}: @${comment.username}\n  Comment Text: ${
         comment.text
-      }\n  Timestamp: ${comment.timestamp}`
+      }\n  Timestamp: ${commentTimestamp
+        .setZone("system")
+        .toLocaleString(DateTime.DATETIME_FULL)}`
     );
   }
 };
