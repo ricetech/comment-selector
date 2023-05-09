@@ -1,4 +1,3 @@
-import * as dotenv from "dotenv"
+import { getComments } from "./ig-data";
 
-dotenv.config();
-
+getComments();
