@@ -44,5 +44,5 @@ export const getComments = async () => {
     console.log(endpoint);
   }
   let commentsJsonString = JSON.stringify(comments, undefined, 2);
-  await fs.promises.appendFile("data/comments.json", commentsJsonString);
+  await fs.promises.writeFile("data/comments.json", commentsJsonString);
 };
