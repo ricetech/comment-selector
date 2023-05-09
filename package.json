@@ -1,0 +1,26 @@
+{
+  "name": "comment-selector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjenvb/comment-selector.git"
+  },
+  "author": "ricetech",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/mjenvb/comment-selector/issues"
+  },
+  "homepage": "https://github.com/mjenvb/comment-selector#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
