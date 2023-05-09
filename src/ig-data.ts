@@ -15,12 +15,12 @@ export const getComments = async () => {
   let firstIter = true;
 
   while (true) {
-    let res = await fetch(endpoint);
+    const res = await fetch(endpoint);
     if (res.status != 200) {
       console.log(res);
       break;
     }
-    let body = await res.json();
+    const body = await res.json();
 
     let base = body;
 
@@ -45,7 +45,7 @@ export const getComments = async () => {
     // Take the last successful endpoint and use it as the new initial value for endpoint (line 9).
     console.log(endpoint);
   }
-  let commentsJsonString = JSON.stringify(comments, undefined, 2);
+  const commentsJsonString = JSON.stringify(comments, undefined, 2);
   // Data is saved to a file in case of interruption.
   // If interrupted, you will want to change this to appendFile to avoid overwriting the old data.
   await fs.promises.writeFile("data/comments.json", commentsJsonString);
